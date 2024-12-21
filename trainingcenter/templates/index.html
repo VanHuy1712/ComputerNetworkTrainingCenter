@@ -1,0 +1,25 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Trang chủ{% endblock %}
+
+{% block content %}
+
+<section>
+    <div class="row">
+    {% for c in courses %}
+    <div class="col-md-3 col-12" style="padding:0.7rem;">
+        <div class="card">
+            <img class="card-img-top" src="{{ c.image }}" alt="{{ c.name }}">
+            <div class="card-body">
+                <h4 class="card-title">{{ c.name }}</h4>
+                <p class="card-text">{{ "{:,.0f}".format(c.price) }} VNĐ</p>
+                <a href="/courses/{{c.id}}" class="btn btn-primary">Xem chi tiết</a>
+                <a href="/courses/{{c.id}}/register" class="btn btn-danger">Đăng ký khóa học</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

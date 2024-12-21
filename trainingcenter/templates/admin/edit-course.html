@@ -1,0 +1,39 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<h1>Chỉnh Sửa Khóa Học</h1>
+<form method="POST" enctype="multipart/form-data"> <!-- Thêm enctype để hỗ trợ upload file -->
+    {{ form.hidden_tag() }}  <!-- Ẩn trường CSRF token -->
+
+    <div class="form-group">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control", value=form.name.data) }}
+    </div>
+
+    <div class="form-group">
+        {{ form.price.label(class="form-label") }}
+        {{ form.price(class="form-control", value=form.price.data) }}
+    </div>
+
+    <div class="form-group">
+        {{ form.description.label(class="form-label") }}
+        {{ form.description(class="form-control", value=form.description.data) }}
+    </div>
+
+    <div class="form-group">
+        {{ form.category_id.label(class="form-label") }}
+        {{ form.category_id(class="form-control") }} <!-- Dropdown chọn thể loại -->
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Ảnh khóa học</label>
+        {% if course.image %}
+        <img src="{{ course.image }}" alt="Course Image" class="img-thumbnail" style="max-width: 150px;">
+        <p>Ảnh hiện tại</p>
+        {% endif %}
+        {{ form.image(class="form-control-file") }} <!-- Cho phép tải lên ảnh mới -->
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập Nhật Khóa Học</button>
+</form>
+{% endblock %}

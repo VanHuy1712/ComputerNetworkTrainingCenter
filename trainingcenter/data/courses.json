@@ -1,0 +1,49 @@
+[{
+  "id": 1,
+  "name": "iPhone 13 ProMax",
+  "price": 27000000,
+  "image": "https://res.cloudinary.com/dxxwcby8l/image/upload/v1679731974/jlad6jqdc69cjrh9zggq.jpg",
+  "category_id": 1
+}, {
+  "id": 2,
+  "name": "Galaxy S23 Ultra",
+  "price": 27000000,
+  "image": "https://res.cloudinary.com/dxxwcby8l/image/upload/v1658027062/dqgc5uq8hrz1xgwe445v.jpg",
+  "category_id": 1
+}, {
+  "id": 3,
+  "name": "iPhone 13",
+  "price": 27000000,
+  "image": "https://res.cloudinary.com/dxxwcby8l/image/upload/v1679731974/jlad6jqdc69cjrh9zggq.jpg",
+  "category_id": 1
+}, {
+  "id": 4,
+  "name": "iPhone 15",
+  "price": 27000000,
+  "image": "https://res.cloudinary.com/dxxwcby8l/image/upload/v1658027062/dqgc5uq8hrz1xgwe445v.jpg",
+  "category_id": 1
+}, {
+  "id": 5,
+  "name": "Galaxy Z-Fold 5",
+  "price": 27000000,
+  "image": "https://res.cloudinary.com/dxxwcby8l/image/upload/v1679731974/jlad6jqdc69cjrh9zggq.jpg",
+  "category_id": 1
+}, {
+  "id": 6,
+  "name": "iPad Pro 2022",
+  "price": 35000000,
+  "image": "https://res.cloudinary.com/dxxwcby8l/image/upload/v1679126974/vz4jnpuqydszbtrcbcnd.jpg",
+  "category_id": 2
+}, {
+  "id": 7,
+  "name": "Galaxy Tab S9",
+  "price": 28000000,
+  "image": "https://res.cloudinary.com/dxxwcby8l/image/upload/v1647248722/r8sjly3st7estapvj19u.jpg",
+  "category_id": 2
+}, {
+  "id": 9,
+  "name": "Mac Book Pro 14' 2021",
+  "price": 28000000,
+  "image": "https://res.cloudinary.com/dxxwcby8l/image/upload/v1670491542/pro14_q73lhp.webp",
+  "category_id": 3
+}]

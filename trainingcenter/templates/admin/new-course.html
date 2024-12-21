@@ -1,0 +1,32 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<h1>Tạo Khóa Học Mới</h1>
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.price.label(class="form-label") }}
+        {{ form.price(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.image.label(class="form-label") }}
+        {{ form.image(class="form-control") }}
+        {% if form.image.data %}
+        <img src="{{ form.image.data }}" alt="Current Image" class="img-thumbnail" width="150"/>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.description.label(class="form-label") }}
+        {{ form.description(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.category_id.label(class="form-label") }}
+        {{ form.category_id(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+</form>
+{% endblock %}

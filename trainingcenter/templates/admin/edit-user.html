@@ -1,0 +1,48 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<h1>Chỉnh Sửa Người Dùng</h1>
+<form method="POST" enctype="multipart/form-data"> <!-- Thêm enctype để hỗ trợ upload file -->
+    {{ form.hidden_tag() }}  <!-- Ẩn trường CSRF token -->
+
+    <div class="form-group">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control", value=user.name) }}
+    </div>
+
+    <div class="form-group">
+        {{ form.username.label(class="form-label") }}
+        {{ form.username(class="form-control", value=user.username, readonly=true) }} <!-- Không cho phép chỉnh sửa username -->
+    </div>
+
+    <div class="form-group">
+        {{ form.password.label(class="form-label") }}
+        {{ form.password(class="form-control", placeholder="Nhập mật khẩu mới (nếu có)") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.confirm.label(class="form-label") }}
+        {{ form.confirm(class="form-control", placeholder="Xác nhận mật khẩu mới (nếu có)") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.email.label(class="form-label") }}
+        {{ form.email(class="form-control", value=user.email) }}
+    </div>
+
+    <div class="form-group">
+        {{ form.role.label(class="form-label") }}
+        {{ form.role(class="form-control") }} <!-- Cho phép chọn vai trò mới -->
+    </div>
+
+    <div class="form-group">
+        {{ form.avatar.label(class="form-label") }}
+        {% if user.avatar %}
+        <img src="{{ user.avatar }}" alt="Avatar" class="img-thumbnail" style="max-width: 150px;">
+        {% endif %}
+        {{ form.avatar(class="form-control-file") }} <!-- Cho phép tải lên avatar mới -->
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+</form>
+{% endblock %}

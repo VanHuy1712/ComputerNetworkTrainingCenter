@@ -1,0 +1,35 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Chi tiết khóa học{% endblock %}
+
+{% block content %}
+
+<!-- templates/register-course.html -->
+<form action="/courses/{{ course.id }}/register" method="POST">
+    <h3>Thông tin khóa học</h3>
+    <p><strong>Tên khóa học:</strong> {{ course.name }}</p>
+    <p><strong>Mô tả:</strong> {{ course.description }}</p>
+    <p><strong>Giá:</strong> {{ course.price }}</p>
+
+    <h3>Thông tin người dùng</h3>
+    <p><strong>Tên:</strong> {{ current_user.name }}</p>
+    <p><strong>Username:</strong> {{ current_user.username }}</p>
+    <p><strong>Email:</strong> {{ current_user.email }}</p>
+    <img src="{{ current_user.avatar }}" alt="Avatar" width="100">
+
+    <h3>Chọn thời gian học</h3>
+    <label for="time_table">Thời gian học:</label>
+    <select name="time_table" id="time_table" required>
+        <option value="246">246 (17h-20h)</option>
+        <option value="357">357 (17h-20h)</option>
+        <option value="T7CN">T7CN (13h-18h)</option>
+    </select>
+
+    <label for="school_start_date">Ngày bắt đầu:</label>
+    <input type="date" name="school_start_date" id="school_start_date" required>
+
+    <button type="submit">Đăng ký</button>
+</form>
+
+
+{% endblock %}

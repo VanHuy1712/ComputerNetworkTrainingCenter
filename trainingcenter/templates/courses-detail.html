@@ -1,0 +1,50 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Chi tiết khóa học{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">{{ course.name }}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ course.image }}" class="img-fluid" alt="{{ course.name }}">
+        </div>
+        <div class="col-md-6">
+            <h4>Thông tin khóa học</h4>
+            <p><strong>Giá:</strong> {{ "{:,.0f}".format(course.price) }} VNĐ</p>
+            <p><strong>Thể loại:</strong> {{ course.category_id }}</p>
+            <p><strong>Mô tả:</strong> {{ course.description }}</p>
+        </div>
+    </div>
+
+    <!-- Nút Đăng ký khóa học -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('register_course', course_id=course.id) }}" class="btn btn-success">Đăng ký khóa học</a>
+    </div>
+
+    <hr>
+    <h4>Bình luận</h4>
+    <div id="comments-section">
+        {% for comment in course.comments|sort(attribute='id', reverse=True) %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p><strong>{{ comment.user.name }}</strong>: {{ comment.content }}</p>
+                    {% if current_user.id == comment.user_id or current_user.is_admin %}
+                    <a href="/comments/delete/{{ comment.id }}" class="btn btn-danger btn-sm">Xóa</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if current_user.is_authenticated %}
+    <form action="{{ url_for('add_comment', course_id=course.id) }}" method="POST">
+        <input type="hidden" name="course_id" value="{{ course.id }}">
+        <textarea class="form-control" name="content" rows="3" placeholder="Viết bình luận..." required></textarea>
+        <button type="submit" class="btn btn-primary mt-2">Gửi</button>
+    </form>
+    {% else %}
+    <p>Vui lòng <a href="/login">đăng nhập</a> để bình luận.</p>
+    {% endif %}
+</div>
+{% endblock %}

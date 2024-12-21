@@ -1,0 +1,108 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<h1 class="text-center text-info mt-1">Thống Kê Báo Cáo</h1>
+
+<!-- Bảng Doanh Thu Theo Khóa Học -->
+<div class="row">
+    <div class="col-md-5 col-12">
+        <h3>Doanh thu theo khóa học</h3>
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Tên khóa học</th>
+                <th>Doanh thu</th>
+            </tr>
+            {% for course in revenue_by_courses %}
+            <tr>
+                <td>{{ course[0] }}</td>
+                <td>{{ course[1] }}</td>
+                <td>{{ "{:,.0f}".format(course[2]) if course[2] else 0 }} VNĐ</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-7 col-12">
+        <canvas id="chart_courses"></canvas>
+    </div>
+</div>
+
+<hr class="hr" />
+
+<!-- Bảng Doanh Thu Theo Thời Gian -->
+<div class="row">
+    <div class="col-md-5 col-12">
+        <h3>Doanh thu theo thời gian</h3>
+        <table class="table">
+            <tr>
+                <th>Thời gian</th>
+                <th>Doanh thu</th>
+            </tr>
+            {% for period in revenue_by_period %}
+            <tr>
+                <td>{{ period[0] }}</td>
+                <td>{{ "{:,.0f}".format(period[1]) }} VNĐ</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-7 col-12">
+        <canvas id="chart_period"></canvas>
+    </div>
+</div>
+
+<!-- Biểu đồ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Dữ liệu cho doanh thu theo khóa học
+    let course_labels = [];
+    let course_data = [];
+    {% for course in revenue_by_courses %}
+        course_labels.push('{{ course[1] }}');
+        course_data.push({{ course[2] or 0 }});
+    {% endfor %}
+
+    // Dữ liệu cho doanh thu theo thời gian
+    let period_labels = [];
+    let period_data = [];
+    {% for period in revenue_by_period %}
+        period_labels.push('{{ period[0] }}');
+        period_data.push({{ period[1] }});
+    {% endfor %}
+
+    // Hàm vẽ biểu đồ
+    function drawChart(type, data, labels, elementId, title) {
+        new Chart(document.getElementById(elementId), {
+            type: type,
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: title,
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    }
+                }
+            }
+        });
+    }
+
+    // Vẽ biểu đồ khi tải trang
+    window.onload = function() {
+        drawChart('bar', course_data, course_labels, 'chart_courses', 'Doanh thu theo khóa học');
+        drawChart('bar', period_data, period_labels, 'chart_period', 'Doanh thu theo thời gian');
+    }
+</script>
+{% endblock %}

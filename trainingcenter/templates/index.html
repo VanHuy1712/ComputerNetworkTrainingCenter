@@ -9,7 +9,7 @@
     {% for c in courses %}
     <div class="col-md-3 col-12" style="padding:0.7rem;">
         <div class="card">
-            <img class="card-img-top" src="{{ c.image }}" alt="{{ c.name }}">
+            <img class="card-img-top fixed-size img-fluid" src="{{ c.image }}" alt="{{ c.name }}">
             <div class="card-body">
                 <h4 class="card-title">{{ c.name }}</h4>
                 <p class="card-text">{{ "{:,.0f}".format(c.price) }} VNĐ</p>
@@ -21,5 +21,13 @@
     {% endfor %}
     </div>
 </section>
+
+<style>
+    .fixed-size {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
 
 {% endblock %}

@@ -93,7 +93,8 @@ def register_user():
             dao.add_user(name=request.form.get('name'),
                          username=request.form.get('username'),
                          password=password,
-                         avatar=avatar_path)
+                         avatar=avatar_path,
+                         email=request.form.get('email'))
 
             return redirect('/login')
         else:

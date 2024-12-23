@@ -65,15 +65,32 @@ def logout_my_user():
     return redirect('/login')
 
 
-@app.route("/admin-login", methods=['post'])
+@app.route("/admin-login", methods=['POST'])
 def process_admin_login():
     username = request.form.get('username')
     password = request.form.get('password')
+
+    # Kiểm tra thông tin đăng nhập và lấy người dùng
     u = dao.auth_user(username=username, password=password)
+
     if u:
+        # Đăng nhập người dùng nếu có
         login_user(user=u)
 
-    return redirect('/admin')
+        # Kiểm tra quyền truy cập của người dùng bằng cách gọi hàm từ dao
+        if dao.is_user_admin(u):
+            return redirect('/admin')  # Nếu là ADMIN, chuyển hướng tới trang quản trị
+        else:
+            # Nếu không phải ADMIN, chuyển hướng đến trang khác (ví dụ: trang người dùng bình thường hoặc trang lỗi)
+            return redirect('/unauthorized')  # Hoặc trang lỗi nếu bạn muốn
+
+    # Nếu không tìm thấy người dùng hoặc thông tin đăng nhập sai, chuyển hướng về trang đăng nhập
+    return redirect('/admin-login')
+
+
+@app.route("/unauthorized")
+def unauthorized():
+    return "You do not have permission to access this page", 403
 
 
 @app.route('/register', methods=['get', 'post'])

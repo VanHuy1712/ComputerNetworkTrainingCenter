@@ -327,7 +327,7 @@ class StatsView(BaseView):
 
     def is_accessible(self):
         # Chỉ cho phép người dùng đã đăng nhập
-        return current_user.is_authenticated
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
 
 class LogoutView(BaseView):

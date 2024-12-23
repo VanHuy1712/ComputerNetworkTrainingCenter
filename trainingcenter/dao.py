@@ -1,5 +1,5 @@
 import json
-from trainingcenter.models import Category, Course, User, Receipt, ReceiptDetails, Comment
+from trainingcenter.models import Category, Course, User, Receipt, ReceiptDetails, Comment, UserRole
 import os.path
 from flask_login import current_user
 from trainingcenter import app, db
@@ -54,6 +54,11 @@ def auth_user(username, password):
     password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
     return User.query.filter(User.username.__eq__(username.strip()),
                              User.password.__eq__(password)).first()
+
+
+# Trong dao.py hoặc nơi bạn định nghĩa các phương thức DAO
+def is_user_admin(user):
+    return user.user_role == UserRole.ADMIN
 
 
 def add_user(name, username, password, avatar, email):

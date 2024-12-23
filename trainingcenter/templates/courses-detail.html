@@ -12,7 +12,7 @@
         <div class="col-md-6">
             <h4>Thông tin khóa học</h4>
             <p><strong>Giá:</strong> {{ "{:,.0f}".format(course.price) }} VNĐ</p>
-            <p><strong>Thể loại:</strong> {{ course.category_id }}</p>
+            <p><strong>Thể loại:</strong> {{ course.category.name }}</p>
             <p><strong>Mô tả:</strong> {{ course.description }}</p>
         </div>
     </div>
@@ -30,7 +30,9 @@
                 <div class="card-body">
                     <p><strong>{{ comment.user.name }}</strong>: {{ comment.content }}</p>
                     {% if current_user.id == comment.user_id or current_user.is_admin %}
-                    <a href="/comments/delete/{{ comment.id }}" class="btn btn-danger btn-sm">Xóa</a>
+                    <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                    </form>
                     {% endif %}
                 </div>
             </div>

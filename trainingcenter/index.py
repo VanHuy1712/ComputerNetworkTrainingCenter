@@ -151,8 +151,6 @@ def register_course(course_id):
     return render_template('register-course.html', course=course)
 
 
-
-
 @app.route('/courses/<int:course_id>/comments', methods=['POST'])
 @login_required
 def add_comment(course_id):
@@ -164,6 +162,30 @@ def add_comment(course_id):
         flash('Bình luận của bạn đã được thêm!', 'success')
 
     return redirect(url_for('course_detail', course_id=course_id))  # Quay lại trang chi tiết khóa học
+
+
+@app.route('/comments/delete/<int:comment_id>', methods=['POST'])
+@login_required
+def delete_comment(comment_id):
+    # Lấy thông tin bình luận từ DAO
+    comment = dao.get_comment_by_id(comment_id)
+
+    if not comment:
+        flash('Bình luận không tồn tại.', 'danger')
+        return redirect(request.referrer or url_for('home'))
+
+    # Kiểm tra quyền xóa
+    if current_user.id != comment.user_id and not current_user.is_admin:
+        flash('Bạn không có quyền xóa bình luận này.', 'danger')
+        return redirect(request.referrer or url_for('home'))
+
+    # Thực hiện xóa bình luận
+    if dao.delete_comment(comment_id):
+        flash('Bình luận đã được xóa.', 'success')
+    else:
+        flash('Có lỗi xảy ra khi xóa bình luận. Vui lòng thử lại.', 'danger')
+
+    return redirect(request.referrer or url_for('home'))
 
 
 # @app.route('/api/courses/<int:id>/comments', methods=['post'])

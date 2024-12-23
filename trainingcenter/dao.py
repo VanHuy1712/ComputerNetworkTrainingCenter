@@ -177,6 +177,24 @@ def add_comment(content, course_id):
 #     return c
 
 
+def get_comment_by_id(comment_id):
+    # Truy vấn để lấy thông tin bình luận
+    return Comment.query.filter_by(id=comment_id).first()
+
+
+def delete_comment(comment_id):
+    # Xóa bình luận khỏi cơ sở dữ liệu
+    try:
+        comment = get_comment_by_id(comment_id)
+        if comment:
+            db.session.delete(comment)
+            db.session.commit()
+            return True
+    except Exception as e:
+        print(f"Lỗi xóa bình luận: {e}")
+    return False
+
+
 def add_course_registration(user_id, course_id, time_table, school_start_date):
     try:
         # Tính ngày kết thúc
